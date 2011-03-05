@@ -45,7 +45,7 @@ function syncWithServer() {
                 v.sync = undefined;
             });
             
-        });
+        }});
 
 }
 
