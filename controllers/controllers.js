@@ -2,47 +2,51 @@ var wd = new models.WordDesk;
 
 function syncWithServer() {
     
-    Backbone.sync = Backbone.stdSync;
-
     // 1. send datas
 
     var to_sync = wd.filter(function(v){
-            return !v.get('__saved');
-        });
-
+        return !v.get('__saved');
+    });
 
     console.log('gonna send');
     
     _(to_sync).each(function(v) {
-            v.save({}, {
-                    error: function(v) {
-                        console.log('error');
-                    },
-                    success: function() {
-                        console.log('success');
-                        v.set({__saved: true});
-                        
-                        v.sync = Backbone.localSync;
-                        v.save();
-                        v.sync = Backbone.stdSync;
-                    }
-                });
+        v.sync = Backbone.stdSync;
+        v.save({}, {
+            error: function(v) {
+                console.log('error');
+            },
+            success: function() {
+                console.log('success');
+                v.set({__saved: true});
+                
+                v.sync = Backbone.localSync;
+                v.save();
+                v.sync = undefined;
+            }
         });
+        v.sync = undefined;
+    });
 
     // 2. receive datas
 
     console.log('gonna receive');
     
-    try {
-        wd.fetch();
-    } catch (e) {
-        console.log('catched f');
-        console.log(e);
-    }
+    wd.fetch({
+        error: function(v) {
+            console.log('error');
+        },
+        success: function() {
+            console.log('success');
+        
+            wd.each(function(v) {
+                v.sync = Backbone.localSync;
+                v.save();
+                v.sync = undefined;
+            });
+            
+        });
 
-    Backbone.sync = Backbone.localSync;
-
-    wd.each(function(v) { v.save(); });
 }
 
 $(function() {
