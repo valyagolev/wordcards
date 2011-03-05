@@ -62,5 +62,33 @@ $(function() {
                 }
             });
 
+        AddCardView = Backbone.View.extend({
+                template: _.template($('#add-template').html()),
+        
+                render: function(result) {
+
+                    var el = this.el;
+                    var _the_view = this;
+                    
+                    $(el).html(this.template({
+                                result: result
+                            }));
+
+                    $('form', el).submit(function() {
+                            _the_view.collection.add([{
+                                        de: $('input.de', el).val(),
+                                        ru: $('input.ru', el).val()
+                                    }]);
+
+                            _the_view.render('Added successfully!');
+
+                            return false;
+                        });
+
+                    return this;
+                    
+                }
+            });
+
         
     });

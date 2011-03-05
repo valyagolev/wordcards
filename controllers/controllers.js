@@ -10,7 +10,8 @@ $(function() {
 
                 routes: {
                     "": "index",
-                    "game": "game"
+                    "game": "game",
+                    "add": "add"
                 },
 
                 index: function() {
@@ -25,6 +26,16 @@ $(function() {
                 game: function() {
 
                     this.view = new RandomCardView({
+                            el: mainContentDiv,
+                            collection: wd
+                        });
+                    this.view.render();
+                    
+                },
+
+                add: function() {
+                    
+                    this.view = new AddCardView({
                             el: mainContentDiv,
                             collection: wd
                         });
