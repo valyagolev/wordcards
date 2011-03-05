@@ -31,6 +31,8 @@ function syncWithServer() {
     // 2. receive datas
 
     console.log('gonna receive');
+
+    wd.sync = Backbone.stdSync;
     
     wd.fetch({
         error: function(v) {
@@ -47,6 +49,8 @@ function syncWithServer() {
             });
             
         }});
+
+    wd.sync = undefined;
 
 }
 
