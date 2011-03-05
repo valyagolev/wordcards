@@ -74,11 +74,18 @@ $(function() {
                                 result: result
                             }));
 
-                    $('form', el).submit(function() {
-                            _the_view.collection.add([{
-                                        de: $('input.de', el).val(),
-                                        ru: $('input.ru', el).val()
-                                    }]);
+                    $('form', el).submit(function(e) {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            
+                            var c = new _the_view.model({
+                                    de: $('input.de', el).val(),
+                                    ru: $('input.ru', el).val()
+                                });
+
+                            c.save();
+
+                            _the_view.collection.add([c]);
 
                             _the_view.render('Added successfully!');
 

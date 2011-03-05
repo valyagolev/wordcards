@@ -1,9 +1,9 @@
 $(function() {
         var mainContentDiv = document.getElementById('main-content');
-
-        var wc1 = new models.WordCard({'de': 'der Kuchen', 'ru': 'пирог'});
-        var wc2 = new models.WordCard({'de': 'essen', 'ru': 'кушать'});
-        var wd = new models.WordDesk([wc1, wc2]);
+    
+        var wd = new models.WordDesk;
+        wd.url = '/deck';
+        wd.fetch();
         
         
         var WordCardsController = Backbone.Controller.extend({
@@ -36,6 +36,7 @@ $(function() {
                 add: function() {
                     
                     this.view = new AddCardView({
+                            model: models.WordCard,
                             el: mainContentDiv,
                             collection: wd
                         });

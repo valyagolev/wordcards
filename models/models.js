@@ -22,6 +22,7 @@
 
 
     models.WordCard = Backbone.Model.extend({
+            url: '/card',
             initialize: function() {
                 console.log('added a word card "{0}"'.format(this.get('ru')));
             } 

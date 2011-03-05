@@ -1,9 +1,22 @@
 
 
-var app = require('express').createServer()
-    , jade = require('jade');
+var express = require('express')
+    , jade = require('jade')
+    , models = require('./models/models');
 
 
+
+
+var wc1 = new models.WordCard({'de': 'der Kuchen', 'ru': 'пирог'});
+var wc2 = new models.WordCard({'de': 'essen', 'ru': 'кушать'});
+
+var main_col = new models.WordDesk([wc1, wc2]);
+
+
+app = require('express').createServer();
+
+app.use(express.logger());
+app.use(express.bodyParser());
 
 app.set('view engine', 'jade');
 app.set('view options', {layout: false});
@@ -18,7 +31,19 @@ app.get('/', function(req, res) {
         res.render('index');
     });
 
-app.get('.*', function(req, res) { res.send('404: ' + req.url); });
+
+app.get('/deck', function(req, res) {
+        // return the whole deck in json format
+        
+        res.send(main_col.toJSON());
+    });
+
+app.post('/card', function(req, res) {
+        var new_card = new models.WordCard(req.body);
+
+        main_col.add(new_card);
+    });
+
 
 
 app.listen(3000);
