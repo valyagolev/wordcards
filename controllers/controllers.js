@@ -34,12 +34,13 @@ function syncWithServer() {
     
     wd.fetch({
         error: function(v) {
-            console.log('error');
+            console.log('error while fetch');
         },
         success: function() {
-            console.log('success');
+            console.log('successfull fetch');
         
             wd.each(function(v) {
+                console.log('saving ' + v.get('ru'));
                 v.sync = Backbone.localSync;
                 v.save();
                 v.sync = undefined;
