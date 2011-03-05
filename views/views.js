@@ -15,10 +15,11 @@ $(function() {
         RandomCardView = Backbone.View.extend({
                 template: _.template($('#ask-template').html()),
 
-                render: function(current_score, result) {
+                render: function(current_score, count, result) {
 
-                    var current_score = current_score || 0;
-                    var result = result || '';
+                    current_score = current_score || 0;
+                    count = count || 0;
+                    result = result || '';
 
                     // every time we render the view
                     // we must show a different card
@@ -35,6 +36,7 @@ $(function() {
                                     card: card,
                                     lang: lang,
                                     score: current_score,
+                                    count: count,
                                     result: result
                             }));
 
@@ -47,10 +49,12 @@ $(function() {
                                 current_score += 1;
                                 var result = 'Good!';
                             } else {
-                                var result = 'Wrong!';
+                                var result = 'Wrong, the right answer is "'
+                                    + card.get('ru') + ' &mdash; '
+                                    + card.get('de') + '"!';
                             }
                             
-                            _the_view.render(current_score, result);
+                            _the_view.render(current_score, count + 1, result);
                         })
                    
                     return this;

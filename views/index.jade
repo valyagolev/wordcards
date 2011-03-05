@@ -10,7 +10,7 @@ html(lang="en")
     script(type="text/javascript", src="/views/views.js")
     script(type="text/javascript", src="/controllers/controllers.js")
   body
-    p o hai
+    p The most awesome app: the word card game!
 
     div(id="main-content")
       | here we go
@@ -37,8 +37,8 @@ html(lang="en")
           | <% } else { %>
           | <%= card.get('de') %>
           | <% } %>
-      p your score is <%= score %>
-      | <% if (result) {%>
-        p <%= result %>
+      p your score is <%= score %> / <%= count %>
+      | <% if (result) { %>
+      p <%= result %>
       | <% } %>
 
