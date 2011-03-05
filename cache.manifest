@@ -1,4 +1,7 @@
 CACHE MANIFEST
+
+# v1
+
 lib/underscore.js
 lib/jquery-1.5.1.js
 lib/backbone.js
