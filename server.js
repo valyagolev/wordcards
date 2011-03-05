@@ -23,6 +23,9 @@ app.use(express.bodyParser());
 app.set('view engine', 'jade');
 app.set('view options', {layout: false});
 
+app.configure('production', function() {
+  app.set('home', '/w');
+});
 
 app.get(/(models|controllers|views|lib)\/.*.(js|css)/, function(req, res){
         res.sendfile('./'+req.url);

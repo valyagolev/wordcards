@@ -3,13 +3,13 @@ html(lang="en", manifest="cache.manifest")
   head
     title word card / словесные карты!
     meta(charset="utf-8")
-    script(type="text/javascript", src="/lib/jquery-1.5.1.js")
-    script(type="text/javascript", src="/lib/underscore.js")
-    script(type="text/javascript", src="/lib/backbone.js")
-    script(type="text/javascript", src="/lib/backbone.localStorage.js")
-    script(type="text/javascript", src="/models/models.js")
-    script(type="text/javascript", src="/views/views.js")
-    script(type="text/javascript", src="/controllers/controllers.js")
+    script(type="text/javascript", src="lib/jquery-1.5.1.js")
+    script(type="text/javascript", src="lib/underscore.js")
+    script(type="text/javascript", src="lib/backbone.js")
+    script(type="text/javascript", src="lib/backbone.localStorage.js")
+    script(type="text/javascript", src="models/models.js")
+    script(type="text/javascript", src="views/views.js")
+    script(type="text/javascript", src="controllers/controllers.js")
   body
     p The most awesome app: the word card game!
 
@@ -21,22 +21,26 @@ html(lang="en", manifest="cache.manifest")
     a(href="#") Menu
 
     // templates
+    - var so = function(id) { return '<script type="text/template" id="' + id + '">'; }
+    - var sc = '</script>'
 
-    script(type="text/template", id="notsaved-template")
-      p
-        | <%= col.length %> item<%= (col.length > 1 ? 's' : '') %> not synced.
-        a(href="#sync") Sync
+    | !{so("notsaved-template")}
+    p
+      | <%= col.length %> item<%= (col.length > 1 ? 's' : '') %> not synced.
+      a(href="#sync") Sync
+    | !{sc}
 
-    script(type="text/template", id="menu-template")
-      p What do you want to do?
-      ul
-        li
-          a(href="#game") Card game
-        li
-          a(href="#add") Add a card
+    | !{so("menu-template")}
+    p What do you want to do?
+    ul
+      li
+        a(href="#game") Card game
+      li
+        a(href="#add") Add a card
+    | !{sc}
 
-    script(type="text/template", id="ask-template")
-      ul
+    | !{so("ask-template")}
+    ul
         li
           | <% if (lang == 'ru') { %>
           input(class="ask-input")
@@ -53,9 +57,10 @@ html(lang="en", manifest="cache.manifest")
       | <% if (result) { %>
       p <%= result %>
       | <% } %>
+    | !{sc}
 
-    script(type="text/template", id="add-template")
-      form
+    | !{so("add-template")}
+    form
         ul
           li
             label Ru:
@@ -68,6 +73,7 @@ html(lang="en", manifest="cache.manifest")
           | <% if (result) { %>
           p <%= result %>
           | <% } %>
+    | !{sc}
 
 
 

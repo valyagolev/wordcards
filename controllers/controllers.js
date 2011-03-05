@@ -49,7 +49,7 @@ $(function() {
         var mainContentDiv = document.getElementById('main-content');
         var notSavedDiv = document.getElementById('not-saved');
    
-        wd.url = '/deck';
+        wd.url = 'deck';
         wd.fetch();
 
         //        setInterval(function() { syncWithServer(); }, 1000);

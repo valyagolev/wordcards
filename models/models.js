@@ -23,7 +23,7 @@
 
 
     models.WordCard = Backbone.Model.extend({
-            url: '/card',
+            url: 'card',
             list_key: 'wordcard',
             localStorage: new Store("WordCardStore"),
             initialize: function() {
