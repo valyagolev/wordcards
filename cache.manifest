@@ -1,0 +1,13 @@
+CACHE MANIFEST
+lib/underscore.js
+lib/jquery-1.5.1.js
+lib/backbone.js
+lib/backbone.localStorage.js
+controllers/controllers.js
+models/models.js
+views/views.js
+
+
+NETWORK:
+deck
+card

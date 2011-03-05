@@ -1,9 +1,69 @@
+var wd = new models.WordDesk;
+
+function syncWithServer() {
+    
+    Backbone.sync = Backbone.stdSync;
+
+    // 1. send datas
+
+    var to_sync = wd.filter(function(v){
+            return !v.get('__saved');
+        });
+
+
+    console.log('gonna send');
+    
+    _(to_sync).each(function(v) {
+            v.save({}, {
+                    error: function(v) {
+                        console.log('error');
+                    },
+                    success: function() {
+                        console.log('success');
+                        v.set({__saved: true});
+                        
+                        v.sync = Backbone.localSync;
+                        v.save();
+                        v.sync = Backbone.stdSync;
+                    }
+                });
+        });
+
+    // 2. receive datas
+
+    console.log('gonna receive');
+    
+    try {
+        wd.fetch();
+    } catch (e) {
+        console.log('catched f');
+        console.log(e);
+    }
+
+    Backbone.sync = Backbone.localSync;
+
+    wd.each(function(v) { v.save(); });
+}
+
 $(function() {
         var mainContentDiv = document.getElementById('main-content');
-    
-        var wd = new models.WordDesk;
+        var notSavedDiv = document.getElementById('not-saved');
+   
         wd.url = '/deck';
         wd.fetch();
+
+        //        setInterval(function() { syncWithServer(); }, 1000);
+        syncWithServer();
+        
+
+        wd.bind('add', function(model, collection) {
+                notSavedView.render();
+            });
+        var notSavedView = new NotSavedView({
+                el: notSavedDiv,
+                collection: wd
+            });
+        setInterval(function() { notSavedView.render() }, 200);
         
         
         var WordCardsController = Backbone.Controller.extend({
@@ -11,7 +71,8 @@ $(function() {
                 routes: {
                     "": "index",
                     "game": "game",
-                    "add": "add"
+                    "add": "add",
+                    "sync": "sync",
                 },
 
                 index: function() {
@@ -42,7 +103,17 @@ $(function() {
                         });
                     this.view.render();
                     
+                },
+
+                sync: function() {
+                    
+                    syncWithServer();
+
+                    notSavedView.render();
+
+                    this.saveLocation('');
                 }
+                
                 
             });
 

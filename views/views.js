@@ -1,4 +1,28 @@
 $(function() {
+
+        NotSavedView = Backbone.View.extend({
+                template: _.template($('#notsaved-template').html()),
+        
+                render: function() {
+
+                    var col = this.collection.filter(function(v) {
+                            return !v.get('__saved');
+                        });
+
+                    if (col.length) {
+                        $(this.el).html(this.template({
+                                    'col': col
+                                }));
+                    } else {
+                        $(this.el).html('');
+                    }
+
+                    return this;
+                    
+                }
+            });
+
+        
         IndexView = Backbone.View.extend({
                 menuTemplate: _.template($('#menu-template').html()),
         

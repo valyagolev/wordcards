@@ -1,16 +1,19 @@
 !!! 5
-html(lang="en")
+html(lang="en", manifest="cache.manifest")
   head
     title word card / словесные карты!
     meta(charset="utf-8")
     script(type="text/javascript", src="/lib/jquery-1.5.1.js")
     script(type="text/javascript", src="/lib/underscore.js")
     script(type="text/javascript", src="/lib/backbone.js")
+    script(type="text/javascript", src="/lib/backbone.localStorage.js")
     script(type="text/javascript", src="/models/models.js")
     script(type="text/javascript", src="/views/views.js")
     script(type="text/javascript", src="/controllers/controllers.js")
   body
     p The most awesome app: the word card game!
+
+    div(id="not-saved")
 
     div(id="main-content")
       | here we go
@@ -18,6 +21,11 @@ html(lang="en")
     a(href="#") Menu
 
     // templates
+
+    script(type="text/template", id="notsaved-template")
+      p
+        | <%= col.length %> item<%= (col.length > 1 ? 's' : '') %> not synced.
+        a(href="#sync") Sync
 
     script(type="text/template", id="menu-template")
       p What do you want to do?
