@@ -1,0 +1,44 @@
+!!! 5
+html(lang="en")
+  head
+    title word card / словесные карты!
+    meta(charset="utf-8")
+    script(type="text/javascript", src="/lib/jquery-1.5.1.js")
+    script(type="text/javascript", src="/lib/underscore.js")
+    script(type="text/javascript", src="/lib/backbone.js")
+    script(type="text/javascript", src="/models/models.js")
+    script(type="text/javascript", src="/views/views.js")
+    script(type="text/javascript", src="/controllers/controllers.js")
+  body
+    p o hai
+
+    div(id="main-content")
+      | here we go
+
+    // templates
+
+    script(type="text/template", id="menu-template")
+      p What do you want to do?
+      ul
+        li
+          a(href="#game") Card game
+
+    script(type="text/template", id="ask-template")
+      ul
+        li
+          | <% if (lang == 'ru') { %>
+          input(class="ask-input")
+          | <% } else { %>
+          | <%= card.get('ru') %>
+          | <% } %>
+        li
+          | <% if (lang == 'de') { %>
+          input(class="ask-input")
+          | <% } else { %>
+          | <%= card.get('de') %>
+          | <% } %>
+      p your score is <%= score %>
+      | <% if (result) {%>
+        p <%= result %>
+      | <% } %>
+
